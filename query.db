@@ -1,0 +1,37 @@
+
+-- Tabel User
+CREATE TABLE User (
+  id SMALLINT AUTO_INCREMENT PRIMARY KEY,
+  NIK CHAR(9) NOT NULL,
+  Nama_Lengkap VARCHAR(50) NOT NULL,
+  Email VARCHAR(30) NOT NULL UNIQUE,
+  nohp CHAR(13) NOT NULL,   
+  foto VARCHAR(255),
+  password CHAR(40) NOT NULL,
+  role ENUM('PMB', 'CAMABA', 'BelumReg') DEFAULT 'BelumReg'
+);
+
+-- Tabel PMB
+CREATE TABLE tb_pmb (
+  id SMALLINT AUTO_INCREMENT PRIMARY KEY,
+  UserId SMALLINT NOT NULL,
+  FOREIGN KEY (UserId) REFERENCES User(id)
+);
+
+-- Tabel Belum Registrasi
+CREATE TABLE tb_BelumReg (
+  id SMALLINT AUTO_INCREMENT PRIMARY KEY,
+  UserId SMALLINT NOT NULL,
+  buktiTf VARCHAR(255),
+  isVerif BOOLEAN DEFAULT FALSE,
+  FOREIGN KEY (UserId) REFERENCES User(id)
+);
+
+-- Tabel Camaba
+CREATE TABLE tb_Camaba (
+  id SMALLINT AUTO_INCREMENT PRIMARY KEY,
+  UserId SMALLINT NOT NULL,
+  noPendaftaran CHAR(10) NOT NULL UNIQUE,
+  statusPendaftaran BOOLEAN DEFAULT FALSE,
+  FOREIGN KEY (UserId) REFERENCES User(id)
+);
