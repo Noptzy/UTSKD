@@ -28,7 +28,7 @@ const generateNIK = (role, index) => {
 };
 
 // Fungsi generate password
-const generatePassword = () => crypto.createHash('sha1').update('password123').digest('hex');
+const generatePassword = () => crypto.createHash('sha256').update('password123').digest('hex');
 
 // Fungsi generate email unik
 const generateUniqueEmail = (name) => {
@@ -36,7 +36,7 @@ const generateUniqueEmail = (name) => {
   do {
     email = faker.internet.email({ 
       firstName: name.replace(/[^a-zA-Z]/g, ''),
-      provider: 'example.com' 
+      provider: 'gmail.com' 
     }).toLowerCase();
   } while (usedEmails.has(email));
   
@@ -57,7 +57,7 @@ async function main() {
     const pmbUsers = Array.from({ length: 4 }, (_, i) => ({
       NIK: generateNIK('PMB', i),
       Nama_Lengkap: faker.person.fullName(),
-      Email: `pmb${i+1}@example.com`,
+      Email: `pmb${i+1}@gmail.com`,
       nohp: '08' + faker.string.numeric(10),
       foto: faker.image.avatar(),
       password: generatePassword(),
@@ -156,7 +156,7 @@ async function main() {
       counter++;
     }
 
-    console.log('\n✅ Semua data berhasil diinsert!');
+    console.log('\n Semua data berhasil diinsert!');
     console.log(`Total data:
     - User: ${allUsers.length}
     - PMB: ${pmbUserIds.length}
